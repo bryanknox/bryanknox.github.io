@@ -1,9 +1,13 @@
 ---
 layout: post
-title:  "Duplicate Detection for Service Bus output binding in Azure Functions"
-date:   2020-04-01
+title: Duplicate Detection for Service Bus output binding in Azure Functions
+date: 2020-04-01T00:00:00.0000000-07:00
+categories: []
+tags: []
+published: true
+permalink: 
+featuredImageUrl: 
 ---
-
 Here's a way to get the Azure Service Bus output binding for your Azure Function working after you've enabled Duplicate Detection (or other features) on the Service Bus queue or topic.
 
 If you haven't had duplicate detection turned on or haven't been using some of the other Azure Service Bus features, you might set up the output binding in your Azure Functions so you can send a custom class object to a Service Bus queue or topic. Something like the following.
@@ -34,7 +38,7 @@ Notice that the Service Bus out parameter specifies the custom class we want to 
 IAsyncCollector<MyItem>
 ```
 
-That will work great as long as you don't have Duplicate Detection (or some of the other featatures) enabled for the queue or topic. 
+That will work great as long as you don't have Duplicate Detection (or some of the other features) enabled for the queue or topic. 
 
 See Azure Service Bus Docs: [Duplicate detection](https://docs.microsoft.com/en-us/azure/service-bus-messaging/duplicate-detection) and [Messages, payloads, and serialization](https://docs.microsoft.com/en-us/azure/service-bus-messaging/service-bus-messages-payloads) for more information about Service Bus Duplicate Detection.
 
@@ -104,7 +108,7 @@ And we wrapped our custom class object (`MyItem` in the example) in a `Message`,
 ```
 
 ### Under the Hood of the Microsoft.Azure.WebJobs.Extensions.ServiceBus
-The source code in GitHub for Microsoft.Azure.WebJobs.Extensions.ServiceBus shows how it handles the difference between a custom class and Micosoft.Azure.ServiceBus.Message.
+The source code in GitHub for Microsoft.Azure.WebJobs.Extensions.ServiceBus shows how it handles the difference between a custom class and Microsoft.Azure.ServiceBus.Message.
 
 See `MessageConverterFactory.cs` at: [https://github.com/Azure/azure-functions-servicebus-extension/blob/master/src/Microsoft.Azure.WebJobs.Extensions.ServiceBus/Bindings/MessageConverterFactory.cs](https://github.com/Azure/azure-functions-servicebus-extension/blob/master/src/Microsoft.Azure.WebJobs.Extensions.ServiceBus/Bindings/MessageConverterFactory.cs)
 
