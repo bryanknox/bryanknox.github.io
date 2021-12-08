@@ -34,7 +34,7 @@ Notice that the Service Bus out parameter specifies the custom class we want to 
 IAsyncCollector<MyItem>
 ```
 
-That will work great as long as you don't have Duplicate Detection (or some of the other featatures) enabled for the queue or topic. 
+That will work great as long as you don't have Duplicate Detection (or some of the other features) enabled for the queue or topic. 
 
 See Azure Service Bus Docs: [Duplicate detection](https://docs.microsoft.com/en-us/azure/service-bus-messaging/duplicate-detection) and [Messages, payloads, and serialization](https://docs.microsoft.com/en-us/azure/service-bus-messaging/service-bus-messages-payloads) for more information about Service Bus Duplicate Detection.
 
@@ -104,7 +104,7 @@ And we wrapped our custom class object (`MyItem` in the example) in a `Message`,
 ```
 
 ### Under the Hood of the Microsoft.Azure.WebJobs.Extensions.ServiceBus
-The source code in GitHub for Microsoft.Azure.WebJobs.Extensions.ServiceBus shows how it handles the difference between a custom class and Micosoft.Azure.ServiceBus.Message.
+The source code in GitHub for Microsoft.Azure.WebJobs.Extensions.ServiceBus shows how it handles the difference between a custom class and Microsoft.Azure.ServiceBus.Message.
 
 See `MessageConverterFactory.cs` at: [https://github.com/Azure/azure-functions-servicebus-extension/blob/master/src/Microsoft.Azure.WebJobs.Extensions.ServiceBus/Bindings/MessageConverterFactory.cs](https://github.com/Azure/azure-functions-servicebus-extension/blob/master/src/Microsoft.Azure.WebJobs.Extensions.ServiceBus/Bindings/MessageConverterFactory.cs)
 
