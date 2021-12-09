@@ -189,3 +189,7 @@ As of this posting the best/only documentation I could find is the following in 
 The `dotnet user-secrets` tool (a.k.a. Secret Manager tool) is a .NET CLI tool that is part of ASP.NET Core.
 
 The `dotnet user-secrets` tool source code is in GitHub as part of  [dotnet/aspnetcore](https://github.com/dotnet/aspnetcore) repo, in the [src/Tools/dotnet-user-secrets](https://github.com/dotnet/aspnetcore/tree/main/src/Tools/dotnet-user-secrets) folder.
+
+## Acknowledgments
+
+- Special thanks to [Panagiotis Kanavos](https://stackoverflow.com/users/134204/panagiotis-kanavos) whose [answer on Stack Overflow](htps://stackoverflow.com/a/60438095/575113) provided the information I needed to understand the `--configuration` option behaves for most of the `dotnet user-secrets` commands.
