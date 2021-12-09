@@ -30,6 +30,7 @@ This post is part of a series about the ASP.NET Core Secret Manager tool that in
 * [See also](#see-also)
 	* [Other Documentation](#other-documentation)
 	* [Source Code for dotnet-user-secrets Tool](#source-code-for-dotnet-user-secrets-tool)
+* [Acknowledgments](#acknowledgments)
 
 <!-- End Document Outline -->
 
@@ -192,4 +193,4 @@ The `dotnet user-secrets` tool source code is in GitHub as part of  [dotnet/aspn
 
 ## Acknowledgments
 
-- Special thanks to [Panagiotis Kanavos](https://stackoverflow.com/users/134204/panagiotis-kanavos) whose [answer on Stack Overflow](htps://stackoverflow.com/a/60438095/575113) provided the information I needed to understand the `--configuration` option behaves for most of the `dotnet user-secrets` commands.
+- Special thanks to [Panagiotis Kanavos](https://stackoverflow.com/users/134204/panagiotis-kanavos) whose [answer on Stack Overflow](https://stackoverflow.com/a/60438095/575113) provided the information I needed to understand the `--configuration` option behaves for most of the `dotnet user-secrets` commands.
