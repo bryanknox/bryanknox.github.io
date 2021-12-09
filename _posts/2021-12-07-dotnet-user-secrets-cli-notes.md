@@ -4,29 +4,22 @@ title: "dotnet user-secrets CLI Notes"
 date: 2021-12-07T00:00:00.0000000-08:00
 ---
 
-In this post I try to provide some helpful information that is not included in the [official documentation](https://docs.microsoft.com/en-us/aspnet/core/security/app-secrets#secret-manager) for the ASP.NET Core's .NET CLI `dotnet user-secrets` tool (a.k.a. Secrets Manager tool).
+In this post I try to provide some helpful information that is not currently included in the [official documentation](https://docs.microsoft.com/en-us/aspnet/core/security/app-secrets#secret-manager) for the ASP.NET Core's .NET CLI `dotnet user-secrets` tool (a.k.a. Secret Manager tool).
 
-This post is part of ASP.NET Core Secrets Manager tool series that includes:
+### Series: ASP.NET Core Secret Manager tool
 
-- [dotnet user-secrets CLI Notes]({%post_url 2021-12-07-dotnet-user-secrets-cli-notes %})
+This post is part of a series about the ASP.NET Core Secret Manager tool that includes:
+
+- [dotnet user-secrets CLI Notes]({%post_url 2021-12-07-dotnet-user-secrets-cli-notes %}) (this post)
 
 - [dotnet user-secrets init CLI Notes]({%post_url 2021-12-08-dotnet-user-secrets-init-cli-notes %})
-
-## dotnet user-secrets
-
-`dotnet user-secrets` is a command line tool for managing the secrets in user secret stores.
-
-The `dotnet user-secrets` tool (a.k.a. Secrets Manager tool) is a .NET CLI tool that is part of ASP.NET Core. The [Secrets Manager tool](https://docs.microsoft.com/en-us/aspnet/core/security/app-secrets#secret-manager) provides an excellent means of managing sensitive settings data on a local machine for .NET and ASP.NET Core app development.
-
-#### Applicable Versions
-This article applies to: .NET 6.x SDK and later versions.
-
-The notes in this post are based on my observations and experiments using `dotnet user-secrets` CLI tool version: `6.0.0-rtm.21526.8+ae1a6cbe225b99c0bf38b7e31bf60cb653b73a52`
 
 ## Table of Contents
 
 <!-- Start Document Outline -->
 
+* [dotnet user-secrets](#dotnet-user-secrets)
+	* [Applicable Versions](#applicable-versions)
 * [Synopsis](#synopsis)
 * [Description](#description)
 * [Options](#options)
@@ -39,6 +32,21 @@ The notes in this post are based on my observations and experiments using `dotne
 	* [Source Code for dotnet-user-secrets Tool](#source-code-for-dotnet-user-secrets-tool)
 
 <!-- End Document Outline -->
+
+## dotnet user-secrets
+
+`dotnet user-secrets` is a command line tool for managing the secrets in user secret stores.
+
+The `dotnet user-secrets` tool (a.k.a. Secret Manager tool) is a .NET CLI tool that is part of ASP.NET Core. The [Secret Manager tool](https://docs.microsoft.com/en-us/aspnet/core/security/app-secrets#secret-manager) provides an excellent means of managing sensitive settings data on a local machine for .NET and ASP.NET Core app development.
+
+##### **Secret Manager vs Secrets Manager**  
+The [Microsoft docs](https://docs.microsoft.com/en-us/aspnet/core/security/app-secrets#secret-manager) call it "Secret Manager", while `dotnet user-secrets --help` calls it "Secrets Manager".
+
+#### Applicable Versions
+This article applies to: .NET 6.x SDK and later versions.
+
+The notes in this post are based on my observations and experiments using `dotnet user-secrets` CLI tool version: `6.0.0-rtm.21526.8+ae1a6cbe225b99c0bf38b7e31bf60cb653b73a52`
+
 
 ## Synopsis
 
@@ -71,7 +79,7 @@ dotnet user-secrets --version
 
 ## Description
 
-The `dotnet user-secrets` tool (a.k.a. Secrets Manager tool) is a .NET CLI tool that is part of ASP.NET Core.
+The `dotnet user-secrets` tool (a.k.a. Secret Manager tool) is a .NET CLI tool that is part of ASP.NET Core.
 
 `dotnet user-secrets` is a command line tool for:
 - Adding or updating user secrets IDs in Visual Studio project files.
@@ -174,10 +182,10 @@ User Secrets Manager
 ### Other Documentation
 
 As of this posting the best/only documentation I could find is the following in Microsoft Docs:
-- [Secrets Manager](https://docs.microsoft.com/en-us/aspnet/core/security/app-secrets?view=aspnetcore-6.0&tabs=windows#secret-manager) section of [Safe storage of app secrets in development in ASP.NET Core](https://docs.microsoft.com/en-us/aspnet/core/security/app-secrets?view=aspnetcore-6.0&tabs=windows)
+- [Secret Manager](https://docs.microsoft.com/en-us/aspnet/core/security/app-secrets?view=aspnetcore-6.0&tabs=windows#secret-manager) section of [Safe storage of app secrets in development in ASP.NET Core](https://docs.microsoft.com/en-us/aspnet/core/security/app-secrets?view=aspnetcore-6.0&tabs=windows)
 
 ### Source Code for dotnet-user-secrets Tool
 
-The `dotnet user-secrets` tool (a.k.a. Secrets Manager tool) is a .NET CLI tool that is part of ASP.NET Core.
+The `dotnet user-secrets` tool (a.k.a. Secret Manager tool) is a .NET CLI tool that is part of ASP.NET Core.
 
 The `dotnet user-secrets` tool source code is in GitHub as part of  [dotnet/aspnetcore](https://github.com/dotnet/aspnetcore) repo, in the [src/Tools/dotnet-user-secrets](https://github.com/dotnet/aspnetcore/tree/main/src/Tools/dotnet-user-secrets) folder.
