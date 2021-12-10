@@ -128,6 +128,8 @@ The `dotnet user-secrets` tool can be used for:
 
 - Managing secrets in a user secrets store.
 
+  - See [Commands for managing secrets in a user secrets store](#commands-for-managing-secrets-in-a-user-secrets-store) below.
+  
 - Initializing or updating a Visual Studio project file so that the project can use secrets stored a specified user secrets store.
 
   - See [dotnet user-secrets init CLI Notes]({%post_url 2021-12-08-dotnet-user-secrets-init-cli-notes %})

@@ -44,7 +44,7 @@ This post is part of a series about the ASP.NET Core Secret Manager tool that in
 
 ## dotnet user-secrets init
 
-The `dotnet user-secrets init` command is used to initialize or update a Visual Studio project file so that the project can use secrets stored a specified user secrets store.
+The `dotnet user-secrets init` command is used to initialize or update a Visual Studio project file so that the project can use secrets stored a user secrets store.
 
 The `dotnet user-secrets init` command is part of ASP.NET Core's .NET CLI [Secret Manager tool](https://docs.microsoft.com/en-us/aspnet/core/security/app-secrets#secret-manager) tool.
 
@@ -82,11 +82,11 @@ dotnet user-secrets init -?|-h|--help
 
 ## Description
 
-The `dotnet user-secrets init` command is used to *add* or *update* a *user secrets ID* in a Visual Studio project file.
+The `dotnet user-secrets init` command is used to initialize or update a Visual Studio project file so that the project can use secrets stored a user secrets store.
 
 *The `dotnet user-secrets init` command does NOT create a user secrets store.*
 
-The command adds or updates a `<UserSecretsId>` element in the first `<PropertyGroup>` element in the Visual Studio project file that does not have a `Condition` attribute.
+The command *adds* or *updates* a `<UserSecretsId>` element in the first `<PropertyGroup>` element in the Visual Studio project file that does not have a `Condition` attribute.
 
 If no `<PropertyGroup>` element exists in the project file, or if all `<PropertyGroup>` elements have `Condition` attributes, then a `<PropertyGroup>` element (with no `Condition` attribute) is added to the project file, and the  `<UserSecretsId>` element is added to it.
 
