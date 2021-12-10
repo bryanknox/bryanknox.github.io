@@ -56,7 +56,11 @@ The [Microsoft docs](https://docs.microsoft.com/en-us/aspnet/core/security/app-s
 
 ## Concepts
 
+A **secret** is has a name and a value.
+
 Sets of secrets are stored in a **user secret store**.
+
+Each individual secret has a unique name within the user secret store.
 
 A **user secrets ID** is used to identify a user secret store on the machine where the Secret Manager is run.
 
