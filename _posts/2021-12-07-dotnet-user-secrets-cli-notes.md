@@ -19,11 +19,15 @@ This post is part of a series about the ASP.NET Core Secret Manager tool that in
 <!-- Start Document Outline -->
 
 * [dotnet user-secrets](#dotnet-user-secrets)
+	* [Concepts](#concepts)
+	* [Secret Manager vs Secrets Manager](#secret-manager-vs-secrets-manager)
 	* [Applicable Versions](#applicable-versions)
 * [Synopsis](#synopsis)
 * [Description](#description)
 * [Options](#options)
 * [Commands](#commands)
+	* [Commands for managing user secret IDs in a Visual Studio project](#commands-for-managing-user-secret-ids-in-a-visual-studio-project)
+	* [Commands for managing secrets in a user secrets store](#commands-for-managing-secrets-in-a-user-secrets-store)
 * [Examples](#examples)
 	* [Show Help](#show-help)
 	* [Show Version](#show-version)
@@ -36,18 +40,26 @@ This post is part of a series about the ASP.NET Core Secret Manager tool that in
 
 ## dotnet user-secrets
 
-`dotnet user-secrets` is a command line tool for managing the secrets in user secret stores.
+`dotnet user-secrets` is a command line tool for managing the set of secrets in a user secret store.
 
-The `dotnet user-secrets` tool (a.k.a. Secret Manager tool) is a .NET CLI tool that is part of ASP.NET Core. The [Secret Manager tool](https://docs.microsoft.com/en-us/aspnet/core/security/app-secrets#secret-manager) provides an excellent means of managing sensitive settings data on a local machine for .NET and ASP.NET Core app development.
+The `dotnet user-secrets` tool (a.k.a. **Secret Manager tool**) is a .NET CLI tool that is part of ASP.NET Core. The [Secret Manager tool](https://docs.microsoft.com/en-us/aspnet/core/security/app-secrets#secret-manager) provides an excellent means of managing sensitive settings data on a local machine for .NET and ASP.NET Core app development.
 
-##### **Secret Manager vs Secrets Manager**  
+### Concepts
+
+Sets of secrets are stored in a **user secret store**.
+
+A **user secrets ID** is used to identify a user secret store on the machine where the Secret Manager tool is run.
+
+Adding a user secrets ID to a Visual Studio project file allows the project's code to use the secrets in that user secrets store. It also makes it easy for developers to use the `dotnet user-secrets` commands for managing secrets in the user secret store.
+
+### Secret Manager vs Secrets Manager
+
 The [Microsoft docs](https://docs.microsoft.com/en-us/aspnet/core/security/app-secrets#secret-manager) call it "Secret Manager", while `dotnet user-secrets --help` calls it "Secrets Manager".
 
-#### Applicable Versions
+### Applicable Versions
 This article applies to: .NET 6.x SDK and later versions.
 
 The notes in this post are based on my observations and experiments using `dotnet user-secrets` CLI tool version: `6.0.0-rtm.21526.8+ae1a6cbe225b99c0bf38b7e31bf60cb653b73a52`
-
 
 ## Synopsis
 
@@ -82,14 +94,16 @@ dotnet user-secrets --version
 
 The `dotnet user-secrets` tool (a.k.a. Secret Manager tool) is a .NET CLI tool that is part of ASP.NET Core.
 
-`dotnet user-secrets` is a command line tool for:
-- Adding or updating user secrets IDs in Visual Studio project files.
-  - See [dotnet user-secrets init CLI Notes]({%post_url 2021-12-08-dotnet-user-secrets-init-cli-notes %})
-- Managing secrets in user secret stores.
+The `dotnet user-secrets` tool can be used for:
 
+- Managing secrets in a user secret store.
+
+- Initializing or updating a Visual Studio project file so that the project can use secrets stored a specified user secrets store.
+
+  - See [dotnet user-secrets init CLI Notes]({%post_url 2021-12-08-dotnet-user-secrets-init-cli-notes %})
 
 ## Options
-The options described below are only those for `dotnet user-secrets` when no additional command is specified. For details about options for specific commands, follow the links in the Commands section below.
+The options described below are only those for `dotnet user-secrets` when no additional command is specified. For details about options for specific commands, follow the links in the [Commands](#commands) section below.
 
 - `-?|-h|--help`
   
@@ -105,36 +119,48 @@ The options described below are only those for `dotnet user-secrets` when no add
 
 ## Commands
 
-For details about commands, and their options follow the links for the specific commands below.
+For details about specific commands and their options follow the links below.
 
-Commands:
+### Commands for managing user secret IDs in a Visual Studio project
 
-- `clear` - Deletes all the application secrets.
-  
-- `init` - Set a user secrets ID to enable secret storage.
+- `init` - Initialize or update a Visual Studio project file so that the project can use secrets stored a specified user secrets store.
    
   - `dotnet user-secrets init [options]`
     
   - See [dotnet user-secrets init CLI Notes]({%post_url 2021-12-08-dotnet-user-secrets-init-cli-notes %})
 
-- `list` - Lists all the application secrets.
+### Commands for managing secrets in a user secrets store
 
-- `remove` - Removes the specified user secret.
+- `clear` - Deletes all the secrets in a user secrets store.
 
-- `set` - Sets the user secret to the specified value.
+  - `dotnet user-secrets clear [options]`
+
+- `list` - Lists secrets in a user secrets store.
+
+  - `dotnet user-secrets list [options]``
+
+- `remove` - Removes the specified secret from a user secrets store.
+  
+  - `dotnet user-secrets remove [arguments] [options]`
+
+- `set` - Sets a secret to a specified value in a user secrets store.
+
+  - `dotnet user-secrets set [arguments] [options]`
+
 
 
 ## Examples
+The following are examples of the `dotnet user-secrets` tool without a specified command.
 
 ### Show Help
 
-Show `dotnet user-secrets` help.
+Show `dotnet user-secrets` tool help.
 
 Command Format:
 ```text
 dotnet user-secrets -?|-h|--help|-v|-verbose
 ```
-All of the above do the produce same output.
+All of the options above the produce same output.
 
 Example:
 ```text
@@ -166,6 +192,8 @@ Use "dotnet user-secrets [command] --help" for more information about a command.
 ```
 
 ### Show Version
+Show `dotnet user-secrets` tool version information.
+
 Example:
 ```text
 dotnet user-secrets --version
