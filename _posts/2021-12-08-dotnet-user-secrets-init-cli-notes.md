@@ -84,9 +84,9 @@ dotnet user-secrets init -?|-h|--help
 
 The `dotnet user-secrets init` command is used to *add* or *update* a *user secrets ID* in a Visual Studio project file.
 
-*The `dotnet user-secrets init` command does NOT create a user secrets file.*
+*The `dotnet user-secrets init` command does NOT create a user secrets store.*
 
-Adds or updates a `<UserSecretsId>` element in the first `<PropertyGroup>` element in the Visual Studio project file that does not have a `Condition` attribute. 
+The command adds or updates a `<UserSecretsId>` element in the first `<PropertyGroup>` element in the Visual Studio project file that does not have a `Condition` attribute.
 
 If no `<PropertyGroup>` element exists in the project file, or if all `<PropertyGroup>` elements have `Condition` attributes, then a `<PropertyGroup>` element (with no `Condition` attribute) is added to the project file, and the  `<UserSecretsId>` element is added to it.
 
@@ -114,7 +114,7 @@ Show help information for `dotnet user-secrets init` command.
 
 `-c|--configuration <CONFIGURATION>`
 
-Ignored. As of version `6.0.0-rtm.21526.8+ae1a6cbe225b99c0bf38b7e31bf60cb653b73a52`, the `-c|--configuration <CONFIGURATION>` options seems to be ignored and have no effect on the `dotnet user-secrets init` command. *Or, it could be that I haven't figured out how to properly use the `--configuration` option with the `dotnet user-secrets init` command.* For other `dotnet user-secrets` commands it is used to specify the project configuration to use.
+Ignored. Currently (in version `6.0.0-rtm.21526.8+ae1a6cbe225b99c0bf38b7e31bf60cb653b73a52`) the `-c|--configuration <CONFIGURATION>` options seems to be ignored and have no effect on the `dotnet user-secrets init` command. *Or, it could be that I haven't figured out how to properly use the `--configuration` option with the `dotnet user-secrets init` command.* For other `dotnet user-secrets` commands it is used to specify the project configuration to use.
 
 You will need to manually setup any project configuration specific user secret IDs in the Visual Studio project file.
 
@@ -150,13 +150,26 @@ That command would update the `<UserSecretsId>` element in the `<PropertyGroup>`
 
 Specifies the user secret ID to be set in the Visual Studio project file.
 
-Defaults to a new GUID.
+If the Id option is not specified then the tool defaults to using a new GUID as the user secret ID.
 
 The specified user secret ID is set as the inner text of the `<UserSecretsId>` element added or updated in the Visual Studio project file.
 
-The user secret ID to used can be simple text, it does not need to be a GUID. 
+The user secret ID to used can be simple text, it does not need to be a GUID.
 
-Elsewhere, the user secret ID is part of the user secrets file path. So the user secret ID should only contain valid file path characters for the operating systems of the machines where it is used.
+The user secrets store associated with the specified user secret ID does not need to already exist.
+
+*The `dotnet user-secrets init` command does NOT create the user secrets store associated with the user secret ID.*
+
+Currently (version `6.0.0-rtm.21526.8+ae1a6cbe225b99c0bf38b7e31bf60cb653b73a52`) the user secret ID is used in the file path of the user secrets store's `secret.json` file.
+
+> **Warning:** The user secret ID should *contain only valid file path characters* for the operating systems of the machines where the Visual Studio project file will be used.
+>
+> The `dotnet user-secrets init` command does not enforce that requirement and will succeed in setting a user secret ID, but other `dotnet user-secrets` commands will produce errors like the following example when they encounter such user secret IDs.
+> ```text
+> Command failed : Invalid character ':' found in the user secrets ID at index '3'.
+> ```
+>The limitation is required because in the current Secret Manager tool (version `6.0.0-rtm.21526.8+ae1a6cbe225b99c0bf38b7e31bf60cb653b73a52`) implementation the user secret ID is used to form the file path to the user secrets store's `secret.json` file.
+
 
 ### Project Option
 

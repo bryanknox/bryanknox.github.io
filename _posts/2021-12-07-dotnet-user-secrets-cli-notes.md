@@ -22,6 +22,9 @@ This post is part of a series about the ASP.NET Core Secret Manager tool that in
 	* [Applicable Versions](#applicable-versions)
 	* [Secret Manager vs Secrets Manager](#secret-manager-vs-secrets-manager)
 * [Concepts](#concepts)
+	* [Secrets, user secrets stores and user secrets IDs](#secrets-user-secret-stores-and-user-secrets-ids)
+	* [User secrets stores and user secrets IDs](#user-secret-stores-and-user-secrets-ids)
+	* [Visual Studio project files, user secrets IDs and configurations](#visual-studio-project-files-user-secrets-ids-and-configurations)
 * [Synopsis](#synopsis)
 * [Description](#description)
 * [Options](#options)
@@ -31,6 +34,8 @@ This post is part of a series about the ASP.NET Core Secret Manager tool that in
 * [Examples](#examples)
 	* [Show Help](#show-help)
 	* [Show Version](#show-version)
+* [Implementation Details](#implementation-details)
+	* [secret.json user secrets store](#secretjson-user-secret-store)
 * [See also](#see-also)
 	* [Other Documentation](#other-documentation)
 	* [Source Code for dotnet-user-secrets Tool](#source-code-for-dotnet-user-secrets-tool)
@@ -40,7 +45,7 @@ This post is part of a series about the ASP.NET Core Secret Manager tool that in
 
 ## dotnet user-secrets
 
-`dotnet user-secrets` is a command line tool for managing the set of secrets in a user secret store, and managing the user secrets store used by a Visual Studio project.
+`dotnet user-secrets` is a command line tool for managing the set of secrets in a user secrets store, and managing the user secrets store used by a Visual Studio project.
 
 The `dotnet user-secrets` tool (a.k.a. [Secret Manager tool](https://docs.microsoft.com/en-us/aspnet/core/security/app-secrets#secret-manager)) is a .NET CLI tool that is part of ASP.NET Core.
 
@@ -56,22 +61,32 @@ The [Microsoft docs](https://docs.microsoft.com/en-us/aspnet/core/security/app-s
 
 ## Concepts
 
-Secrets, user secret stores and user secrets IDs
+### Secrets, user secrets stores and user secrets IDs
 
-- A **secret** is has a name and a value.
+- A **secret** has a name and a value.
 
-- Sets of secrets are stored in a **user secret store**.
+- Sets of secrets are stored in a **user secrets store**.
+  
+  - The implementation and location of a user secrets store are hidden behind the abstractions provided by the Secret Manager tool. That allows the Secret Manager to be used by developer and code without exposing the implementation details. It also allows the tool to evolve to support user secrets stores in different locations or with different implementations.
+  
+    - See the [Implementation Details](#implementation-details) section below.
+    
+    - In these notes I use the term "user secrets store" instead of "secrets file" to honor the intended abstractions.
+  
+- Each individual secret has a unique name that is used to identify it within the user secrets store.
 
-- Each individual secret is has a unique name that is used to identify it within the user secret store.
+- A **user secrets ID** is used to identify a user secrets store.
 
-- A **user secrets ID** is used to identify a user secret store on the machine where the Secret Manager is run.
+### User secrets stores and user secrets IDs
 
-Visual Studio project files, user secrets IDs and configurations
+### Visual Studio project files, user secrets IDs and configurations
 
-- A user secrets ID can be added to a Visual Studio project file to associate the project with a specific user secret store.
+- A user secrets ID can be added to a Visual Studio project file to associate the project with a specific user secrets store.
 
 - When a Visual Studio project file has a user secrets ID:
+  
   - The project's code can use secrets in the associated user secrets store via ASP.NET Core's Secret Manager.
+  
   - Developers can use the `dotnet user-secrets` commands to manage secrets in the user secrets store associated with the project, without having to explicitly specify the user secrets ID.
 
 - A Visual Studio project file can have multiple **configurations** and each build of the project uses exactly one of the configurations.
@@ -111,7 +126,7 @@ dotnet user-secrets --version
 
 The `dotnet user-secrets` tool can be used for:
 
-- Managing secrets in a user secret store.
+- Managing secrets in a user secrets store.
 
 - Initializing or updating a Visual Studio project file so that the project can use secrets stored a specified user secrets store.
 
@@ -218,6 +233,24 @@ Output:
 User Secrets Manager
 6.0.0-rtm.21526.8+ae1a6cbe225b99c0bf38b7e31bf60cb653b73a52
 ```
+
+## Implementation Details
+
+### secret.json user secrets store
+
+The implementation and location of a user secrets store are hidden behind the abstractions provided by the Secret Manager tool. That allows the Secret Manager to be used by developer and code without exposing the implementation details. It also allows the tool to evolve to support user secrets stores in different locations or with different implementations.
+
+> Developers are warned not to write code that depends on the location, storage or implementation details of user secrets stores as those things could changes in the future.
+
+Currently (version `6.0.0-rtm.21526.8+ae1a6cbe225b99c0bf38b7e31bf60cb653b73a52`) user secrets stores are implemented as JSON files named `secret.json` that are stored in the local machine's user profile folder.
+
+**File system path**
+
+Linux/macOS: `~/.microsoft/usersecrets/<user_secrets_id>/secrets.json`
+
+Windows: `%APPDATA%\Microsoft\UserSecrets\<user_secrets_id>\secrets.json`
+
+Where `<user_secrets_id>` is the user secrets ID that is used to uniquely identify the user secrets store on the local machine.
 
 ## See also
 
