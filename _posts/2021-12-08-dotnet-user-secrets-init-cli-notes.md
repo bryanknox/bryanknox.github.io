@@ -23,12 +23,13 @@ This post is part of a series about the ASP.NET Core Secret Manager tool that in
 * [Concepts](#concepts)
 * [Synopsis](#synopsis)
 * [Description](#description)
+	* [Configuration-specific User Secrets](#configuration-specific-user-secrets)
 * [Options](#options)
 	* [Help Option](#help-option)
 	* [Configuration Option](#configuration-option)
 		* [My configuration option wish](#my-configuration-option-wish)
 	* [Id Option](#id-option)
-		* [Project Option](#project-option)
+	* [Project Option](#project-option)
 	* [Verbose Option](#verbose-option)
 * [Examples](#examples)
 	* [Initialize using defaults](#initialize-using-defaults)
@@ -54,19 +55,7 @@ The notes in this post are based on my observations and experiments using `dotne
 
 ## Concepts
 
-A **secret** is has a name and a value.
-
-Sets of secrets are stored in a **user secret store**.
-
-Each individual secret has a unique name within the user secret store.
-
-A **user secrets ID** is used to identify a user secret store on the machine where the Secret Manager is run.
-
-A user secrets ID can be added to a Visual Studio project file to associate the project with a specific user secret store.
-
-When a Visual Studio project file has a user secrets ID:
-- The project's code can use secrets in the associated user secrets store via ASP.NET Core's Secret Manager.
-- Developers can use the `dotnet user-secrets` commands to manage secrets in the user secrets store associated with the project, without having to explicitly specify the user secrets ID.
+See the **Concepts** section of [dotnet user-secrets CLI Notes]({%post_url 2021-12-07-dotnet-user-secrets-cli-notes %}).
 
 ## Synopsis
 
@@ -103,8 +92,15 @@ If no `<PropertyGroup>` element exists in the project file, or if all `<Property
 
 The `<UserSecretsId>` element's inner text is initialized to new GUID by default, unless a user secrets ID is specified by the `--id <USERSECRETSID>` option.
 
-Searches the current directory for the Visual Studio project file by default, unless the path to a project file is specified by the `-p|--project <PROJECT>` option.
+If the [Project Option](#project-option) is not specified then the tool searches the current directory for the Visual Studio project file.
 
+### Configuration-specific User Secrets
+
+The user secret ID added or updated in the project by the tool is independent of any configuration associated with the project. So all builds of the project will use the same user secrets store when the build is run.
+
+If you want to use configuration-specific user secrets stores, then you'll need to manually add `<UserSecretsId>` elements to the `<PropertyGroup>` elements with the `Condition` attributes.
+
+See the [Configuration Option](#configuration-option) section below for more info.
 
 ## Options
 
@@ -119,6 +115,8 @@ Show help information for `dotnet user-secrets init` command.
 `-c|--configuration <CONFIGURATION>`
 
 Ignored. As of version `6.0.0-rtm.21526.8+ae1a6cbe225b99c0bf38b7e31bf60cb653b73a52`, the `-c|--configuration <CONFIGURATION>` options seems to be ignored and have no effect on the `dotnet user-secrets init` command. *Or, it could be that I haven't figured out how to properly use the `--configuration` option with the `dotnet user-secrets init` command.* For other `dotnet user-secrets` commands it is used to specify the project configuration to use.
+
+You will need to manually setup any project configuration specific user secret IDs in the Visual Studio project file.
 
 #### My configuration option wish
 
@@ -146,11 +144,6 @@ That command would update the `<UserSecretsId>` element in the `<PropertyGroup>`
   </PropertyGroup>
 ```
 
-However, that may be tough to implement given that `Condition` attributes can be complex. For example:
-```xml
-<PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">`
-```
-
 ### Id Option
 
 `--id \<USERSECRETSID>`
@@ -165,13 +158,13 @@ The user secret ID to used can be simple text, it does not need to be a GUID.
 
 Elsewhere, the user secret ID is part of the user secrets file path. So the user secret ID should only contain valid file path characters for the operating systems of the machines where it is used.
 
-#### Project Option
+### Project Option
 
 `-p|--project <PROJECT>`
 
 Path to the Visual Studio project file where the user secrets ID will be added or updated.
 
-Defaults to searching the current directory for the Visual Studio project file.
+If the project option is not specified then the tool defaults to searching the current directory for the Visual Studio project file.
 
 ### Verbose Option
 
