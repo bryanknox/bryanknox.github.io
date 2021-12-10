@@ -19,8 +19,8 @@ This post is part of a series about the ASP.NET Core Secret Manager tool that in
 <!-- Start Document Outline -->
 
 * [dotnet user-secrets init](#dotnet-user-secrets-init)
-	* [Concepts](#concepts)
 	* [Applicable Versions](#applicable-versions)
+* [Concepts](#concepts)
 * [Synopsis](#synopsis)
 * [Description](#description)
 * [Options](#options)
@@ -39,18 +39,24 @@ This post is part of a series about the ASP.NET Core Secret Manager tool that in
 
 The `dotnet user-secrets init` command is used to initialize or update a Visual Studio project file so that the project can use secrets stored a specified user secrets store.
 
-### Concepts
-
-A **user secrets ID** is used to identify a user secret store on the machine where the Secret Manager tool is run.
-
-Adding a user secrets ID to a Visual Studio project file allows the project's code to use the secrets in that user secrets store. It also makes it easy for developers to use the `dotnet user-secrets` commands for managing secrets in the user secret store.
-
 The `dotnet user-secrets init` command is part of ASP.NET Core's .NET CLI [Secret Manager tool](https://docs.microsoft.com/en-us/aspnet/core/security/app-secrets#secret-manager) tool.
 
 ### Applicable Versions
 This article applies to: .NET 6.x SDK and later versions.
 
 The notes in this post are based on my observations and experiments using `dotnet user-secrets` CLI tool version: `6.0.0-rtm.21526.8+ae1a6cbe225b99c0bf38b7e31bf60cb653b73a52`
+
+## Concepts
+
+Sets of secrets are stored in a **user secret store**.
+
+A **user secrets ID** is used to identify a user secret store on the machine where the Secret Manager is run.
+
+A user secrets ID can be added to a Visual Studio project file to associate the project with a specific user secret store.
+
+When a Visual Studio project file has a user secrets ID:
+- The project's code can use secrets in the associated user secrets store via ASP.NET Core's Secret Manager.
+- Developers can use the `dotnet user-secrets` commands to manage secrets in the user secrets store associated with the project, without having to explicitly specify the user secrets ID.
 
 ## Synopsis
 
@@ -79,7 +85,7 @@ dotnet user-secrets init -?|-h|--help
 
 The `dotnet user-secrets init` command is used to *add* or *update* a *user secrets ID* in a Visual Studio project file.
 
-A Visual Studio project file with a user secrets ID can use secrets storage in development environments via the ASP.NET Core's Secret Manager. And so that other `dotnet user-secrets` commands can then be used with the Visual Studio project without having to specify a user secrets ID.
+
 
 > The `dotnet user-secrets init` command does NOT create a secrets file.
 
