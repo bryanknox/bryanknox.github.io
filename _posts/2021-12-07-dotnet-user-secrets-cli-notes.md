@@ -97,7 +97,17 @@ The [Microsoft docs](https://docs.microsoft.com/en-us/aspnet/core/security/app-s
 
   - Developers can specify a configuration to the the `dotnet user-secrets` tool and it will use it to search the the Visual Studio project file for the user secrets ID that should be used.
   
- - Projects and configurations are used as shortcuts that can be a convenient way for developers to work with secrets in user secrets stores. Once the project file is setup to associate user secrets IDs to its configurations, then the developers can use the `dotnet user-secrets` tool and indicate a configuration. That allows the developer manage the secrets for a particular project configuration without having to remember the specific user secrets ID.
+- The use of configurations is optional.
+   
+   - Developers can setup a Visual Studio project file so that the same user secrets ID is used regardless of the number of configurations that have been setup for the project.
+  
+ - Configurations are independent of user secrets stores.
+   
+   - Each configuration can be setup in the project with a different user secrets ID, so that each configuration uses a different store. Or multiple configurations in the same project can use the same user secrets ID, so that they use the same user secrets store.
+  
+ - The combination of project and configuration can be used by the `dotnet user-secrets` tool to determine the user secrets ID to use for accessing the associated user secrets store.
+
+   - Projects and configurations are used as shortcuts that can be a convenient way for developers to work with secrets in user secrets stores. Once the project file is setup to associate user secrets IDs to its configurations, then the developers can use the `dotnet user-secrets` tool and indicate a configuration. That allows the developer manage the secrets for a particular project configuration without having to remember the specific user secrets ID.
 
 ## Synopsis
 
