@@ -61,7 +61,7 @@ The [Microsoft docs](https://docs.microsoft.com/en-us/aspnet/core/security/app-s
 
 ## Concepts
 
-### Secrets, user secrets stores and user secrets IDs
+### Secrets and user secrets stores
 
 - A **secret** has a name and a value.
 
@@ -85,11 +85,9 @@ The [Microsoft docs](https://docs.microsoft.com/en-us/aspnet/core/security/app-s
 
 - A user secrets ID can be added to a Visual Studio project file to associate the project with a specific user secrets store.
 
-- When a Visual Studio project file has a user secrets ID:
-  
-  - The project's code can use secrets in the associated user secrets store via ASP.NET Core's Secret Manager.
+- When a Visual Studio project file has a user secrets ID the project's code can use secrets in the associated user secrets store via ASP.NET Core's Secret Manager.
 
-- The `dotnet user-secrets` tool can read the user secrets ID in a specified Visual Studio project file, or the tool can search for a project file from which to read the user secrets ID.
+- The `dotnet user-secrets` tool can read the user secrets ID from a specified Visual Studio project file, or the tool can search for a project file from which to read the user secrets ID.
     
   - Developers can use the `dotnet user-secrets` tool to manage secrets in the user secrets store associated with the project, without having to explicitly specify the user secrets ID.
 
@@ -98,6 +96,8 @@ The [Microsoft docs](https://docs.microsoft.com/en-us/aspnet/core/security/app-s
 - A configuration in a Visual Studio project can be associated with a user secrets ID. That allows the build of the project for a particular configuration to use secrets from the user secrets store associated with that configuration.
 
   - Developers can specify a configuration to the the `dotnet user-secrets` tool and it will use it to search the the Visual Studio project file for the user secrets ID that should be used.
+  
+ - Projects and configurations are used as shortcuts that can be a convenient way for developers to work with secrets in user secrets stores. Once the project file is setup to associate user secrets IDs to its configurations, then the developers can use the `dotnet user-secrets` tool and indicate a configuration. That allows the developer manage the secrets for a particular project configuration without having to remember the specific user secrets ID.
 
 ## Synopsis
 
@@ -252,7 +252,7 @@ The implementation and location of a user secrets store are hidden behind the ab
 
 Currently (version `6.0.0-rtm.21526.8+ae1a6cbe225b99c0bf38b7e31bf60cb653b73a52`) user secrets stores are implemented as JSON files named `secret.json` that are stored in the local machine's user profile folder.
 
-**File system path**
+**File system path:**
 
 Linux/macOS: `~/.microsoft/usersecrets/<user_secrets_id>/secrets.json`
 
