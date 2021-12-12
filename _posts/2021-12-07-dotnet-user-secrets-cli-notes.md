@@ -75,23 +75,29 @@ The [Microsoft docs](https://docs.microsoft.com/en-us/aspnet/core/security/app-s
   
 - Each individual secret has a unique name that is used to identify it within the user secrets store.
 
-- A **user secrets ID** is used to identify a user secrets store.
-
 ### User secrets stores and user secrets IDs
 
-### Visual Studio project files, user secrets IDs and configurations
+- A **user secrets ID** is used to identify a user secrets store.
+  
+  - Developers can specify a user secrets ID to the `dotnet user-secrets` tool to manage secrets in the user secrets store associated with that user secrets ID.
+
+### Project files, configurations and user secrets IDs
 
 - A user secrets ID can be added to a Visual Studio project file to associate the project with a specific user secrets store.
 
 - When a Visual Studio project file has a user secrets ID:
   
   - The project's code can use secrets in the associated user secrets store via ASP.NET Core's Secret Manager.
-  
-  - Developers can use the `dotnet user-secrets` commands to manage secrets in the user secrets store associated with the project, without having to explicitly specify the user secrets ID.
+
+- The `dotnet user-secrets` tool can read the user secrets ID in a specified Visual Studio project file, or the tool can search for a project file from which to read the user secrets ID.
+    
+  - Developers can use the `dotnet user-secrets` tool to manage secrets in the user secrets store associated with the project, without having to explicitly specify the user secrets ID.
 
 - A Visual Studio project file can have multiple **configurations** and each build of the project uses exactly one of the configurations.
 
 - A configuration in a Visual Studio project can be associated with a user secrets ID. That allows the build of the project for a particular configuration to use secrets from the user secrets store associated with that configuration.
+
+  - Developers can specify a configuration to the the `dotnet user-secrets` tool and it will use it to search the the Visual Studio project file for the user secrets ID that should be used.
 
 ## Synopsis
 
