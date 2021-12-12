@@ -51,23 +51,28 @@ Options:
   -v|--verbose                        Show verbose output
   -p|--project <PROJECT>              Path to project. Defaults to searching the current directory.
   -c|--configuration <CONFIGURATION>  The project configuration to use. Defaults to 'Debug'.
-  --id                                The user secret ID to use.
-
-Additional Info:
-  This command will also handle piped input. Piped input is expected to be a valid JSON format.
-
-Examples:
-  dotnet user-secrets set ConnStr "User ID=bob;Password=***"
-  type .\secrets.json | dotnet user-secrets set
+  --id <USERSECRETSID>                The user secret ID to use.
 ```
 
 Synopsis for various options: 
 ```text
+dotnet user-secrets set [name] [value]
+    [-p|--project <PROJECT>]
+    [-c|--configuration <CONFIGURATION>]
+
+dotnet user-secrets set [name] [value]
+    --id <USERSECRETSID>
+
+dotnet user-secrets set -?|-h|--help
 ```
 
 ## Description
 
 The `dotnet user-secrets set` command is used set the value of a named secret in a user secrets store.
+
+The user secrets store to be operated on can be specified by 
+
+
 
 ## Arguments
   
@@ -88,15 +93,17 @@ Show help information for `dotnet user-secrets set` command.
 
 `-c|--configuration <CONFIGURATION>`
 
-Specifies the configuration of the Visual Studio project that should be used to determine the user secrets store to operate on.
+Specifies the configuration in the Visual Studio project file that the user secrets ID to use should be associated with.
 
 Defaults to the configuration named "Debug".
 
 Ignored if any id option is specified.
 
+The Visual Studio project file's global user secrets ID will be used if the specified configuration is not associated with a user secrets ID in the project file. Or, an error will be output if project file does not have a global user secrets ID.
+
 ### Id Option
 
-`--id \<USERSECRETSID>`
+`--id <USERSECRETSID>`
 
 Specifies the user secret ID of the user secrets store to operate on.
 
@@ -116,12 +123,39 @@ Ignored if any id option is specified.
 
 `-v|--verbose`
 
-Ignored. As of version `6.0.0-rtm.21526.8+ae1a6cbe225b99c0bf38b7e31bf60cb653b73a52`, the `-v|--verbose` options seems to be ignored and have no effect on the output of the `dotnet user-secrets init` command.
+Show verbose information in the command's output.
 
-Show verbose output.
+The verbose information includes:
+- Project file path.
+- Secrets file path.
+- Additional error and diagnostic details for MSBuild related errors.
+
 
 ## Examples
 
+### Default project and configuration
+
+```text
+dotnet user-secrets set ConnectionString "User ID=bob;Password=***"
+```
+
+Sets the `ConnectionString` secret to the value `User ID=bob;Password=***`. 
+
+Because no project option was specified, the command looks in the Visual Studio project file in the current directory on the local machine.
+
+No configuration option is specified, so the command looks in the project file for the configuration named "Debug" and uses the user secrets ID associated with that configuration. If no user secrets ID is associated with the Debug configuration in the project file, then the user secrets ID in the project file that is NOT associated with any particular configuration is used. That is referred to as the project's global user secrets ID. If global user secrets ID cannot be found then an error like the following is output.
+
+```text
+Could not find the global property 'UserSecretsId' in MSBuild project 'D:\Tests\MyProject\MyProject.csproj'. Ensure this property is set in the project or use the '--id' command line option.
+```
+
+### Piped Input
+
+The command will accept piped input. Piped input is expected to be in valid JSON format.
+
+```text
+type .\my-secrets.json | dotnet user-secrets set
+```
 
 ## See also
 
