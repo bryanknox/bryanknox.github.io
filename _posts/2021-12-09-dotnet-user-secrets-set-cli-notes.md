@@ -67,7 +67,7 @@ Synopsis for various options:
 
 ## Description
 
-The `dotnet user-secrets set` command ...
+The `dotnet user-secrets set` command is used set the value of a named secret in a user secrets store.
 
 ## Arguments
   
