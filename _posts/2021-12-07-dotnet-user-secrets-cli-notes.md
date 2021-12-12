@@ -29,7 +29,7 @@ This post is part of a series about the ASP.NET Core Secret Manager tool that in
 * [Description](#description)
 * [Options](#options)
 * [Commands](#commands)
-	* [Commands for managing user secret IDs in a Visual Studio project](#commands-for-managing-user-secret-ids-in-a-visual-studio-project)
+	* [Commands for managing user secrets IDs in a Visual Studio project](#commands-for-managing-user-secret-ids-in-a-visual-studio-project)
 	* [Commands for managing secrets in a user secrets store](#commands-for-managing-secrets-in-a-user-secrets-store)
 * [Examples](#examples)
 	* [Show Help](#show-help)
@@ -79,35 +79,35 @@ The [Microsoft docs](https://docs.microsoft.com/en-us/aspnet/core/security/app-s
 
 - A **user secrets ID** is used to identify a user secrets store.
   
-  - Developers can specify a user secrets ID to the `dotnet user-secrets` tool to manage secrets in the user secrets store associated with that user secrets ID.
+  - Developers can specify a `UserSecretsId` to the `dotnet user-secrets` tool to manage secrets in the user secrets store associated with that `UserSecretsId`.
 
 ### Project files, configurations and user secrets IDs
 
-- A user secrets ID can be added to a Visual Studio project file to associate the project with a specific user secrets store.
+- A `UserSecretsId` can be added to a Visual Studio project file to associate the project with a specific user secrets store.
 
-- When a Visual Studio project file has a user secrets ID the project's code can use secrets in the associated user secrets store via ASP.NET Core's Secret Manager.
+- When a Visual Studio project file has a `UserSecretsId` the project's code can use secrets in the associated user secrets store via ASP.NET Core's Secret Manager.
 
-- The `dotnet user-secrets` tool can read the user secrets ID from a specified Visual Studio project file, or the tool can search for a project file from which to read the user secrets ID.
+- The `dotnet user-secrets` tool can read the `UserSecretsId` from a specified Visual Studio project file, or the tool can search for a project file from which to read the `UserSecretsId`.
     
-  - Developers can use the `dotnet user-secrets` tool to manage secrets in the user secrets store associated with the project, without having to explicitly specify the user secrets ID.
+  - Developers can use the `dotnet user-secrets` tool to manage secrets in the user secrets store associated with the project, without having to explicitly specify the `UserSecretsId`.
 
 - A Visual Studio project file can have multiple **configurations** and each build of the project uses exactly one of the configurations.
 
-- A configuration in a Visual Studio project can be associated with a user secrets ID. That allows the build of the project for a particular configuration to use secrets from the user secrets store associated with that configuration.
+- A configuration in a Visual Studio project can be associated with a `UserSecretsId`. That allows the build of the project for a particular configuration to use secrets from the user secrets store associated with that configuration.
 
-  - Developers can specify a configuration to the the `dotnet user-secrets` tool and it will use it to search the the Visual Studio project file for the user secrets ID that should be used.
+  - Developers can specify a configuration to the the `dotnet user-secrets` tool and it will use it to search the the Visual Studio project file for the `UserSecretsId` that should be used.
   
 - The use of configurations is optional.
    
-   - Developers can setup a Visual Studio project file so that the same user secrets ID is used regardless of the number of configurations that have been setup for the project.
+   - Developers can setup a Visual Studio project file so that the same `UserSecretsId` is used regardless of the number of configurations that have been setup for the project.
   
  - Configurations are independent of user secrets stores.
    
-   - Each configuration can be setup in the project with a different user secrets ID, so that each configuration uses a different store. Or multiple configurations in the same project can use the same user secrets ID, so that they use the same user secrets store.
+   - Each configuration can be setup in the project with a different `UserSecretsId`, so that each configuration uses a different store. Or multiple configurations in the same project can use the same `UserSecretsId`, so that they use the same user secrets store.
   
- - The combination of project and configuration can be used by the `dotnet user-secrets` tool to determine the user secrets ID to use for accessing the associated user secrets store.
+ - The combination of project and configuration can be used by the `dotnet user-secrets` tool to determine the `UserSecretsId` to use for accessing the associated user secrets store.
 
-   - Projects and configurations are used as shortcuts that can be a convenient way for developers to work with secrets in user secrets stores. Once the project file is setup to associate user secrets IDs to its configurations, then the developers can use the `dotnet user-secrets` tool and indicate a configuration. That allows the developer manage the secrets for a particular project configuration without having to remember the specific user secrets ID.
+   - Projects and configurations are used as shortcuts that can be a convenient way for developers to work with secrets in user secrets stores. Once the project file is setup to associate `UserSecretsId`s to its configurations, then the developers can use the `dotnet user-secrets` tool and indicate a configuration. That allows the developer manage the secrets for a particular project configuration without having to remember the specific `UserSecretsId`.
 
 ## Synopsis
 
@@ -121,14 +121,14 @@ Options:
   -v|--verbose                        Show verbose output
   -p|--project <PROJECT>              Path to project. Defaults to searching the current directory.
   -c|--configuration <CONFIGURATION>  The project configuration to use. Defaults to 'Debug'.
-  --id <USERSECRETSID>                The user secret ID to use.
+  --id <USERSECRETSID>                The user secrets ID to use.
 
 Commands:
-  clear   Deletes all the application secrets
-  init    Set a user secrets ID to enable secret storage
-  list    Lists all the application secrets
-  remove  Removes the specified user secret
-  set     Sets the user secret to the specified value
+  clear   Deletes all the secrets in a user secrets store.
+  init    Initialize or update a Visual Studio projectto use a specified user secrets store.
+  list    Lists secrets in a user secrets store. 
+  remove  Removes the specified secret from a user secrets store.
+  set     Sets a secret to a specified value in a user secrets store.
 ```
 
 Synopsis for usage without a command: 
@@ -169,7 +169,7 @@ The options described below are only those for `dotnet user-secrets` when no add
 
 For details about specific commands and their options follow the links below.
 
-### Commands for managing user secret IDs in a Visual Studio project
+### Commands for managing user secrets IDs in a Visual Studio project
 
 - `init` - Initialize or update a Visual Studio project file so that the project can use secrets stored a specified user secrets store.
    
@@ -227,7 +227,7 @@ Options:
   -v|--verbose                        Show verbose output
   -p|--project <PROJECT>              Path to project. Defaults to searching the current directory.
   -c|--configuration <CONFIGURATION>  The project configuration to use. Defaults to 'Debug'.
-  --id                                The user secret ID to use.
+  --id                                The user secrets ID to use.
 
 Commands:
   clear   Deletes all the application secrets

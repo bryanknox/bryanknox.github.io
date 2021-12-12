@@ -51,7 +51,7 @@ Options:
   -v|--verbose                        Show verbose output
   -p|--project <PROJECT>              Path to project. Defaults to searching the current directory.
   -c|--configuration <CONFIGURATION>  The project configuration to use. Defaults to 'Debug'.
-  --id <USERSECRETSID>                The user secret ID to use.
+  --id <USERSECRETSID>                The user secrets ID to use.
 ```
 
 Synopsis for various options: 
@@ -93,21 +93,21 @@ Show help information for `dotnet user-secrets set` command.
 
 `-c|--configuration <CONFIGURATION>`
 
-Specifies the configuration in the Visual Studio project file that the user secrets ID to use should be associated with.
+Specifies the configuration in the Visual Studio project file that the `UserSecretsId` to use should be associated with.
 
 Defaults to the configuration named "Debug".
 
 Ignored if any id option is specified.
 
-The Visual Studio project file's global user secrets ID will be used if the specified configuration is not associated with a user secrets ID in the project file. Or, an error will be output if project file does not have a global user secrets ID.
+The Visual Studio project file's global `UserSecretsId` will be used if the specified configuration is not associated with a `UserSecretsId` in the project file. Or, an error will be output if project file does not have a global `UserSecretsId`.
 
 ### Id Option
 
 `--id <USERSECRETSID>`
 
-Specifies the user secret ID of the user secrets store to operate on.
+Specifies the `UserSecretsId` of the user secrets store to operate on.
 
-If an id option is specified, then the tool will ignore any project option, configuration option, or any user secrets ID in the local Visual Studio project file.
+If an id option is specified, then the tool will ignore any project option, configuration option, and it will not look for a Visual Studio project file.
 
 ### Project Option
 
@@ -143,7 +143,7 @@ Sets the `ConnectionString` secret to the value `User ID=bob;Password=***`.
 
 Because no project option was specified, the command looks in the Visual Studio project file in the current directory on the local machine.
 
-No configuration option is specified, so the command looks in the project file for the configuration named "Debug" and uses the user secrets ID associated with that configuration. If no user secrets ID is associated with the Debug configuration in the project file, then the user secrets ID in the project file that is NOT associated with any particular configuration is used. That is referred to as the project's global user secrets ID. If global user secrets ID cannot be found then an error like the following is output.
+No configuration option is specified, so the command looks in the project file for the configuration named "Debug" and uses the `UserSecretsId` associated with that configuration. If no `UserSecretsId` is associated with the Debug configuration in the project file, then the `UserSecretsId` in the project file that is NOT associated with any particular configuration is used. That is referred to as the project's global `UserSecretsId`. If global `UserSecretsId` cannot be found then an error like the following is output.
 
 ```text
 Could not find the global property 'UserSecretsId' in MSBuild project 'D:\Tests\MyProject\MyProject.csproj'. Ensure this property is set in the project or use the '--id' command line option.

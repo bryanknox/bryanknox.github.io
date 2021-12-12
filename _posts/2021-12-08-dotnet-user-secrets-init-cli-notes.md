@@ -34,7 +34,7 @@ This post is part of a series about the ASP.NET Core Secret Manager tool that in
 * [Examples](#examples)
 	* [Initialize using defaults](#initialize-using-defaults)
 	* [Specify Visual Studio project to initialize](#specify-visual-studio-project-to-initialize)
-	* [Specify custom user secret ID](#specify-custom-user-secret-id)
+	* [Specify custom user secrets ID](#specify-custom-user-secret-id)
 	* [Visual Studio projects with PropertyGroup Condition attributes](#visual-studio-projects-with-propertygroup-condition-attributes)
 * [See also](#see-also)
 	* [Other Documentation](#other-documentation)
@@ -68,7 +68,7 @@ Options:
   -v|--verbose                        Ignored.
   -p|--project <PROJECT>              Path to project. Defaults to searching the current directory.
   -c|--configuration <CONFIGURATION>  Ignored.
-  --id <USERSECRETSID>                The user secret ID to use.
+  --id <USERSECRETSID>                The user secrets ID to use.
 ```
 
 Synopsis for various options: 
@@ -90,13 +90,13 @@ The command *adds* or *updates* a `<UserSecretsId>` element in the first `<Prope
 
 If no `<PropertyGroup>` element exists in the project file, or if all `<PropertyGroup>` elements have `Condition` attributes, then a `<PropertyGroup>` element (with no `Condition` attribute) is added to the project file, and the  `<UserSecretsId>` element is added to it.
 
-The `<UserSecretsId>` element's inner text is initialized to new GUID by default, unless a user secrets ID is specified by the `--id <USERSECRETSID>` option.
+The `<UserSecretsId>` element's inner text is initialized to new GUID by default, unless a `UserSecretsId` is specified by the `--id <USERSECRETSID>` option.
 
 If the [Project Option](#project-option) is not specified then the tool searches the current directory for the Visual Studio project file.
 
 ### Configuration-specific User Secrets
 
-The user secret ID added or updated in the project by the tool is independent of any configuration associated with the project. So all builds of the project will use the same user secrets store when the build is run.
+The `UserSecretsId` added or updated in the project by the tool is independent of any configuration associated with the project. So all builds of the project will use the same user secrets store when the build is run.
 
 If you want to use configuration-specific user secrets stores, then you'll need to manually add `<UserSecretsId>` elements to the `<PropertyGroup>` elements with the `Condition` attributes.
 
@@ -116,11 +116,11 @@ Show help information for `dotnet user-secrets init` command.
 
 Ignored. Currently (in version `6.0.0-rtm.21526.8+ae1a6cbe225b99c0bf38b7e31bf60cb653b73a52`) the `-c|--configuration <CONFIGURATION>` options seems to be ignored and have no effect on the `dotnet user-secrets init` command. *Or, it could be that I haven't figured out how to properly use the `--configuration` option with the `dotnet user-secrets init` command.* For other `dotnet user-secrets` commands it is used to specify the project configuration to use.
 
-You will need to manually setup any project configuration specific user secret IDs in the Visual Studio project file.
+You will need to manually setup any project configuration specific `UserSecretsId`s in the Visual Studio project file.
 
 #### My configuration option wish
 
-I would like to see the `--configuration` options used to specify the configuration in the project file that the user secrets ID should be added or updated for. 
+I would like to see the `--configuration` options used to specify the configuration in the project file that the `UserSecretsId` should be added or updated for. 
 
 For example:
 ```text
@@ -148,34 +148,34 @@ That command would update the `<UserSecretsId>` element in the `<PropertyGroup>`
 
 `--id \<USERSECRETSID>`
 
-Specifies the user secret ID to be set in the Visual Studio project file.
+Specifies the `UserSecretsId` to be set in the Visual Studio project file.
 
-If the Id option is not specified then the tool defaults to using a new GUID as the user secret ID.
+If the Id option is not specified then the tool defaults to using a new GUID as the `UserSecretsId`.
 
-The specified user secret ID is set as the inner text of the `<UserSecretsId>` element added or updated in the Visual Studio project file.
+The specified `UserSecretsId` is set as the inner text of the `<UserSecretsId>` element added or updated in the Visual Studio project file.
 
-The user secret ID to used can be simple text, it does not need to be a GUID.
+The `UserSecretsId` to used can be simple text, it does not need to be a GUID.
 
-The user secrets store associated with the specified user secret ID does not need to already exist.
+The user secrets store associated with the specified `UserSecretsId` does not need to already exist.
 
-*The `dotnet user-secrets init` command does NOT create the user secrets store associated with the user secret ID.*
+*The `dotnet user-secrets init` command does NOT create the user secrets store associated with the `UserSecretsId`.*
 
-Currently (version `6.0.0-rtm.21526.8+ae1a6cbe225b99c0bf38b7e31bf60cb653b73a52`) the user secret ID is used in the file path of the user secrets store's `secret.json` file.
+Currently (version `6.0.0-rtm.21526.8+ae1a6cbe225b99c0bf38b7e31bf60cb653b73a52`) the `UserSecretsId` is used in the file path of the user secrets store's `secret.json` file.
 
-> **Warning:** The user secret ID should *contain only valid file path characters* for the operating systems of the machines where the Visual Studio project file will be used.
+> **Warning:** The `UserSecretsId` should *contain only valid file path characters* for the operating systems of the machines where the Visual Studio project file will be used.
 >
-> The `dotnet user-secrets init` command does not enforce that requirement and will succeed in setting a user secret ID, but other `dotnet user-secrets` commands will produce errors like the following example when they encounter such user secret IDs.
+> The `dotnet user-secrets init` command does not enforce that requirement and will succeed in setting a `UserSecretsId`, but other `dotnet user-secrets` commands will produce errors like the following example when they encounter such `UserSecretsId`s.
 > ```text
-> Command failed : Invalid character ':' found in the user secrets ID at index '3'.
+> Command failed : Invalid character ':' found in the `UserSecretsId` at index '3'.
 > ```
->The limitation is required because in the current Secret Manager tool (version `6.0.0-rtm.21526.8+ae1a6cbe225b99c0bf38b7e31bf60cb653b73a52`) implementation the user secret ID is used to form the file path to the user secrets store's `secret.json` file.
+>The limitation is required because in the current Secret Manager tool (version `6.0.0-rtm.21526.8+ae1a6cbe225b99c0bf38b7e31bf60cb653b73a52`) implementation the `UserSecretsId` is used to form the file path to the user secrets store's `secret.json` file.
 
 
 ### Project Option
 
 `-p|--project <PROJECT>`
 
-Path to the Visual Studio project file where the user secrets ID will be added or updated.
+Path to the Visual Studio project file where the `UserSecretsId` will be added or updated.
 
 If the project option is not specified then the tool defaults to searching the current directory for the Visual Studio project file.
 
@@ -192,7 +192,7 @@ Ignored. As of version `6.0.0-rtm.21526.8+ae1a6cbe225b99c0bf38b7e31bf60cb653b73a
 ```text
 dotnet user-secrets init
 ```
-Generates a new GUID will be used as the user secret ID.
+Generates a new GUID will be used as the `UserSecretsId`.
 
 ```xml
 <PropertyGroup>
@@ -201,24 +201,24 @@ Generates a new GUID will be used as the user secret ID.
 </PropertyGroup>
 ```
 
-If the Visual Studio project file already has a user secret ID, it will not be updated.
+If the Visual Studio project file already has a `UserSecretsId`, it will not be updated.
 
 ### Specify Visual Studio project to initialize
 
-Use the `-p|--project <PROJECT>` option to specify the path to the Visual Studio project files that the user secret ID should be added to.
+Use the `-p|--project <PROJECT>` option to specify the path to the Visual Studio project files that the `UserSecretsId` should be added to.
 
 ```text
 dotnet user-secrets init -p D:/repos/my-repos/sample/MyProject/MyProject.cspoj`
 ```
 
-### Specify custom user secret ID
+### Specify custom user secrets ID
 
-Use the `--id <USERSECRETSID>` option to specify the user secret ID to add or update in the Visual Studio project file.
+Use the `--id <USERSECRETSID>` option to specify the `UserSecretsId` to add or update in the Visual Studio project file.
 
 ```text
 dotnet user-secrets init `--id local-dev-test1`
 ```
-The following Visual Studio project snippet shows an example of the `<UserSecretsId>` element that is added or updated. Where `local-dev-test1` is the user secret ID that was specified.
+The following Visual Studio project snippet shows an example of the `<UserSecretsId>` element that is added or updated. Where `local-dev-test1` is the `UserSecretsId` that was specified.
 
 ```xml
 <PropertyGroup>
