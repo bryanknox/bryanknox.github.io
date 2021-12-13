@@ -196,6 +196,10 @@ For details about specific commands and their options follow the links below.
 - `set` - Sets a secret to a specified value in a user secrets store.
 
   - `dotnet user-secrets set [arguments] [options]`
+  
+  - See [dotnet user-secrets set CLI Notes]({%post_url 2021-12-09-dotnet-user-secrets-set-cli-notes %})
+
+> I haven't written posts for the `clear`, `list`, and `remove` commands, but those should be fairly easy to figure out from the information in [dotnet user-secrets set CLI Notes]({%post_url 2021-12-09-dotnet-user-secrets-set-cli-notes %}). 
 
 
 
