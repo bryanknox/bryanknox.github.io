@@ -92,9 +92,11 @@ dotnet user-secrets set -?|-h|--help
 
 The `dotnet user-secrets set` command is used set the value of a named secret in a user secrets store.
 
-The user secrets store to be operated on can be specified by 
+The user secrets store to be operated on can be specified in two different ways:
+- Directly using the [Id Option](#id-option) to specify the `UserSecretsId`.
+- Indirectly via a Visual Studio project file. The project file in the current directory is used by default, as is the `Debug` configuration within the project file. See [Project Option](#project-option) and [Configuration Option](#configuration-option) below for info on how to override those defaults.
 
-
+The user secrets store will be created if it does not already exist.
 
 ## Arguments
   
