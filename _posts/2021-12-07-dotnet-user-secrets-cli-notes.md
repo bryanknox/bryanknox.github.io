@@ -14,6 +14,8 @@ This post is part of a series about the ASP.NET Core Secret Manager tool that in
 
 - [dotnet user-secrets init CLI Notes]({%post_url 2021-12-08-dotnet-user-secrets-init-cli-notes %})
 
+- [dotnet user-secrets set CLI Notes]({%post_url 2021-12-09-dotnet-user-secrets-set-cli-notes %})
+
 ## Table of Contents
 
 <!-- Start Document Outline -->
@@ -22,20 +24,20 @@ This post is part of a series about the ASP.NET Core Secret Manager tool that in
 	* [Applicable Versions](#applicable-versions)
 	* [Secret Manager vs Secrets Manager](#secret-manager-vs-secrets-manager)
 * [Concepts](#concepts)
-	* [Secrets, user secrets stores and user secrets IDs](#secrets-user-secret-stores-and-user-secrets-ids)
-	* [User secrets stores and user secrets IDs](#user-secret-stores-and-user-secrets-ids)
-	* [Visual Studio project files, user secrets IDs and configurations](#visual-studio-project-files-user-secrets-ids-and-configurations)
+	* [Secrets and user secrets stores](#secrets-and-user-secrets-stores)
+	* [User secrets stores and user secrets IDs](#user-secrets-stores-and-user-secrets-ids)
+	* [Project files, configurations and user secrets IDs](#project-files-configurations-and-user-secrets-ids)
 * [Synopsis](#synopsis)
 * [Description](#description)
 * [Options](#options)
 * [Commands](#commands)
-	* [Commands for managing user secrets IDs in a Visual Studio project](#commands-for-managing-user-secret-ids-in-a-visual-studio-project)
+	* [Commands for managing user secrets IDs in a Visual Studio project](#commands-for-managing-user-secrets-ids-in-a-visual-studio-project)
 	* [Commands for managing secrets in a user secrets store](#commands-for-managing-secrets-in-a-user-secrets-store)
 * [Examples](#examples)
 	* [Show Help](#show-help)
 	* [Show Version](#show-version)
 * [Implementation Details](#implementation-details)
-	* [secret.json user secrets store](#secretjson-user-secret-store)
+	* [secret.json user secrets store](#secretjson-user-secrets-store)
 * [See also](#see-also)
 	* [Other Documentation](#other-documentation)
 	* [Source Code for dotnet-user-secrets Tool](#source-code-for-dotnet-user-secrets-tool)
@@ -273,6 +275,8 @@ Where `<user_secrets_id>` is the user secrets ID that is used to uniquely identi
 ## See also
 
 - [dotnet user-secrets init CLI Notes]({%post_url 2021-12-08-dotnet-user-secrets-init-cli-notes %})
+
+- [dotnet user-secrets set CLI Notes]({%post_url 2021-12-09-dotnet-user-secrets-set-cli-notes %})
 
 ### Other Documentation
 

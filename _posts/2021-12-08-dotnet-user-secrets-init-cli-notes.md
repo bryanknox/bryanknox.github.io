@@ -14,6 +14,8 @@ This post is part of a series about the ASP.NET Core Secret Manager tool that in
 
 - [dotnet user-secrets init CLI Notes]({%post_url 2021-12-08-dotnet-user-secrets-init-cli-notes %})  (this post)
 
+- [dotnet user-secrets set CLI Notes]({%post_url 2021-12-09-dotnet-user-secrets-set-cli-notes %})
+
 ## Table of Contents
 
 <!-- Start Document Outline -->
@@ -27,6 +29,7 @@ This post is part of a series about the ASP.NET Core Secret Manager tool that in
 * [Options](#options)
 	* [Help Option](#help-option)
 	* [Configuration Option](#configuration-option)
+		* [Manually adding Configuration-specific UserSecretsIds](#manually-adding-configuration-specific-usersecretsids)
 		* [My configuration option wish](#my-configuration-option-wish)
 	* [Id Option](#id-option)
 	* [Project Option](#project-option)
@@ -34,7 +37,7 @@ This post is part of a series about the ASP.NET Core Secret Manager tool that in
 * [Examples](#examples)
 	* [Initialize using defaults](#initialize-using-defaults)
 	* [Specify Visual Studio project to initialize](#specify-visual-studio-project-to-initialize)
-	* [Specify custom user secrets ID](#specify-custom-user-secret-id)
+	* [Specify custom user secrets ID](#specify-custom-user-secrets-id)
 	* [Visual Studio projects with PropertyGroup Condition attributes](#visual-studio-projects-with-propertygroup-condition-attributes)
 * [See also](#see-also)
 	* [Other Documentation](#other-documentation)
@@ -86,7 +89,9 @@ The `dotnet user-secrets init` command is used to initialize or update a Visual 
 
 *The `dotnet user-secrets init` command does NOT create a user secrets store.*
 
-The command *adds* or *updates* a `<UserSecretsId>` element in the first `<PropertyGroup>` element in the Visual Studio project file that does not have a `Condition` attribute.
+The command *adds* or *updates* the Visual Studio project file's *global* `UserSecretsId`.
+
+The global `UserSecretsId` is the `<UserSecretsId>` element in the first `<PropertyGroup>` element in the Visual Studio project file that does not have a `Condition` attribute.
 
 If no `<PropertyGroup>` element exists in the project file, or if all `<PropertyGroup>` elements have `Condition` attributes, then a `<PropertyGroup>` element (with no `Condition` attribute) is added to the project file, and the  `<UserSecretsId>` element is added to it.
 
@@ -96,9 +101,9 @@ If the [Project Option](#project-option) is not specified then the tool searches
 
 ### Configuration-specific User Secrets
 
-The `UserSecretsId` added or updated in the project by the tool is independent of any configuration associated with the project. So all builds of the project will use the same user secrets store when the build is run.
+The global `UserSecretsId` added or updated in the project by the tool is independent of any configuration associated with the project. It will be used by any configuration that does not have an associated `UserSecretsId` setup in the project file.
 
-If you want to use configuration-specific user secrets stores, then you'll need to manually add `<UserSecretsId>` elements to the `<PropertyGroup>` elements with the `Condition` attributes.
+If you want to use configuration-specific user secrets stores, then you'll need to manually add `<UserSecretsId>` elements to the `<PropertyGroup>` elements that have `Condition` attributes the associate the `<PropertyGroup>` with the configuration.
 
 See the [Configuration Option](#configuration-option) section below for more info.
 
@@ -114,34 +119,64 @@ Show help information for `dotnet user-secrets init` command.
 
 `-c|--configuration <CONFIGURATION>`
 
-Ignored. Currently (in version `6.0.0-rtm.21526.8+ae1a6cbe225b99c0bf38b7e31bf60cb653b73a52`) the `-c|--configuration <CONFIGURATION>` options seems to be ignored and have no effect on the `dotnet user-secrets init` command. *Or, it could be that I haven't figured out how to properly use the `--configuration` option with the `dotnet user-secrets init` command.* For other `dotnet user-secrets` commands it is used to specify the project configuration to use.
+Ignored. Currently (in version `6.0.0-rtm.21526.8+ae1a6cbe225b99c0bf38b7e31bf60cb653b73a52`) the `-c|--configuration <CONFIGURATION>` options seems to be ignored and have no effect on the `dotnet user-secrets init` command. *Or, it could be that I haven't figured out how to properly use the `--configuration` option with the `dotnet user-secrets init` command.* 
 
-You will need to manually setup any project configuration specific `UserSecretsId`s in the Visual Studio project file.
+Other `dotnet user-secrets` commands do support the configuration option.
 
-#### My configuration option wish
+#### Manually adding Configuration-specific UserSecretsIds
 
-I would like to see the `--configuration` options used to specify the configuration in the project file that the `UserSecretsId` should be added or updated for. 
-
-For example:
-```text
-dotnet user-secrets init -c TestConfig1 -id myNewUserSecretId
-```
-
-That command would update the `<UserSecretsId>` element in the `<PropertyGroup>` element where Configuration is `TestConfig2`. As shown in the following project file snippet.
+If you want to use configuration-specific user secrets stores, then you'll need to manually edit the Visual Studio project file and add `<UserSecretsId>` elements to the `<PropertyGroup>` elements with `Condition` attributes that associate the `<PropertyGroup>` with the configuration.
 
 ```xml
   <PropertyGroup>
     <OutputType>Exe</OutputType>
     <TargetFramework>net5.0</TargetFramework>
+    <!-- Global UserSecretsId -->
+    <UserSecretsId>myGlobal-UserSecretsId</UserSecretsId>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)'=='TestConfig1'">
+    <!-- TestConfig1 configuration's  UserSecretsId -->
     <UserSecretsId>myTestConfig1-UserSecretsId</UserSecretsId>
   </PropertyGroup> 
 
   <PropertyGroup Condition="'$(Configuration)'=='TestConfig2'">
+    <!-- TestConfig2 configuration's  UserSecretsId -->
     <UserSecretsId>myNewUserSecretId</UserSecretsId>
   </PropertyGroup>
+```
+
+#### My configuration option wish
+
+I would like to see the `--configuration` options be supported by the `dotnet user-secrets init` command so that it could be used to initialize or update the global `UserSecretsId` or a configuration-specific `UserSecretsId`.
+
+The following is a sample Visual Studio project file that has a global `UserSecretsId`, plus configuration-specific user secrets IDs for configurations named `TestConfig1` and `TestConfig2`.
+
+```xml
+  <PropertyGroup>
+    <OutputType>Exe</OutputType>
+    <TargetFramework>net5.0</TargetFramework>
+    <!-- Global UserSecretsId -->
+    <UserSecretsId>myGlobal-UserSecretsId</UserSecretsId>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)'=='TestConfig1'">
+    <!-- TestConfig1 configuration's  UserSecretsId -->
+    <UserSecretsId>myTestConfig1-UserSecretsId</UserSecretsId>
+  </PropertyGroup> 
+
+  <PropertyGroup Condition="'$(Configuration)'=='TestConfig2'">
+    <!-- TestConfig2 configuration's  UserSecretsId -->
+    <UserSecretsId>myTestConfig2-UserSecretsId</UserSecretsId>
+  </PropertyGroup>
+```
+
+##### Example - Update UserSecretsId for Specified Configuration
+
+The following command would update the sample project above by setting the the user secrets ID in the `<UserSecretsId>` element within the `<PropertyGroup>` element where Configuration is `TestConfig2`.
+
+```text
+dotnet user-secrets init -c TestConfig1 -id myNewUserSecretId
 ```
 
 ### Id Option
@@ -254,6 +289,8 @@ In the Visual Studio project file, a `<UserSecretsId>` element is added or updat
 ## See also
 
 - [dotnet user-secrets CLI Notes]({%post_url 2021-12-07-dotnet-user-secrets-cli-notes %})
+
+- [dotnet user-secrets set CLI Notes]({%post_url 2021-12-09-dotnet-user-secrets-set-cli-notes %})
 
 ### Other Documentation
 

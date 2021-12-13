@@ -18,6 +18,28 @@ This post is part of a series about the ASP.NET Core Secret Manager tool that in
 
 ## Table of Contents
 
+<!-- Start Document Outline -->
+
+* [dotnet user-secrets set](#dotnet-user-secrets-set)
+	* [Applicable Versions](#applicable-versions)
+* [Concepts](#concepts)
+* [Synopsis](#synopsis)
+* [Description](#description)
+* [Arguments](#arguments)
+* [Options](#options)
+	* [Help Option](#help-option)
+	* [Configuration Option](#configuration-option)
+	* [Id Option](#id-option)
+	* [Project Option](#project-option)
+	* [Verbose Option](#verbose-option)
+* [Examples](#examples)
+	* [Default project and configuration](#default-project-and-configuration)
+	* [Piped Input](#piped-input)
+* [See also](#see-also)
+	* [Other Documentation](#other-documentation)
+* [Acknowledgments](#acknowledgments)
+
+<!-- End Document Outline -->
 
 ## dotnet user-secrets set
 
