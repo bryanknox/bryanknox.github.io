@@ -45,7 +45,7 @@ This post is part of a series about the ASP.NET Core Secret Manager tool that in
 
 `dotnet user-secrets set` 
 
-The `dotnet user-secrets set` command is used set the value of a named secret in a user secrets store.
+The `dotnet user-secrets set` command is used to set the value of a named secret in a user secrets store.
 
 The `dotnet user-secrets set` command is part of ASP.NET Core's .NET CLI [Secret Manager tool](https://docs.microsoft.com/en-us/aspnet/core/security/app-secrets#secret-manager) tool.
 
@@ -90,11 +90,11 @@ dotnet user-secrets set -?|-h|--help
 
 ## Description
 
-The `dotnet user-secrets set` command is used set the value of a named secret in a user secrets store.
+The `dotnet user-secrets set` command is used to set the value of a named secret in a user secrets store.
 
 The user secrets store to be operated on can be specified in two different ways:
-- Directly using the [Id Option](#id-option) to specify the `UserSecretsId`.
-- Indirectly via a Visual Studio project file. The project file in the current directory is used by default, as is the `Debug` configuration within the project file. See [Project Option](#project-option) and [Configuration Option](#configuration-option) below for info on how to override those defaults.
+1. Directly using the [Id Option](#id-option) to specify the `UserSecretsId`.
+1. Indirectly via a Visual Studio project file. The project file in the current directory is used by default, as is the `Debug` configuration within the project file. See [Project Option](#project-option) and [Configuration Option](#configuration-option) below for info on how to override those defaults.
 
 The user secrets store will be created if it does not already exist.
 
@@ -123,7 +123,7 @@ Defaults to the configuration named "Debug".
 
 Ignored if any id option is specified.
 
-The Visual Studio project file's global `UserSecretsId` will be used if the specified configuration is not associated with a `UserSecretsId` in the project file. Or, an error will be output if project file does not have a global `UserSecretsId`.
+The Visual Studio project file's global `UserSecretsId` will be used if the specified configuration is not associated with a `UserSecretsId` in the project file. In that scenario an error will be output if the project file does not have a global `UserSecretsId`.
 
 ### Id Option
 
