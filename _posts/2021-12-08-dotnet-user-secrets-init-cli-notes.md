@@ -2,6 +2,7 @@
 layout: post
 title: "dotnet user-secrets init CLI Notes"
 date: 2021-12-08T00:00:00.0000000-08:00
+canonical_url: https://bryanknox.github.io/2021/12/08/dotnet-user-secrets-init-cli-notes.html
 ---
 
 In this post I try to provide some helpful information that is not currently included in the [official documentation](https://docs.microsoft.com/en-us/aspnet/core/security/app-secrets#secret-manager) for the ASP.NET Core's .NET CLI Secret Manager tool's `dotnet user-secrets init` command.
