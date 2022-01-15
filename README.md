@@ -1,3 +1,4 @@
+[![Board Status](https://dev.azure.com/knoxbits/798aefb4-714b-434c-a7fc-ab2a0af6131a/35e1115c-7868-4c5a-8551-92be55e2eb42/_apis/work/boardbadge/127ecc58-09f9-404a-b5c2-e347690ddf60)](https://dev.azure.com/knoxbits/798aefb4-714b-434c-a7fc-ab2a0af6131a/_boards/board/t/35e1115c-7868-4c5a-8551-92be55e2eb42/Microsoft.RequirementCategory)
 
 # BryanKnox's GitHub Pages
 
