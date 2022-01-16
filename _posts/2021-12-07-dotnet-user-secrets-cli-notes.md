@@ -2,7 +2,6 @@
 layout: post
 title: "dotnet user-secrets CLI Notes"
 date: 2021-12-07T00:00:00.0000000-08:00
-canonical_url: https://bryanknox.github.io/2021/12/07/dotnet-user-secrets-cli-notes.html
 ---
 
 In this post I try to provide some helpful information that is not currently included in the [official documentation](https://docs.microsoft.com/en-us/aspnet/core/security/app-secrets#secret-manager) for the ASP.NET Core's .NET CLI `dotnet user-secrets` tool (a.k.a. Secret Manager tool).

@@ -23,7 +23,17 @@ email: ""
 description: >- # this means to ignore newlines until "baseurl:"
   I love software development. It makes me happy.
 baseurl: "" # the subpath of your site, e.g. /blog
-url: "https://bryanknox.github.io" # the base hostname & protocol for your site, e.g. http://example.com
+
+ # `url:` is the base hostname & protocol for the site, e.g. http://example.com
+ # It should be the URL to the GitHub pages.
+ # This is important for the generation of:
+ #   - sitemap
+ #   - canonical_url
+ # When the `docker-compose.yml` is used for localhost testing, this `url:` does NOT
+ # appear in the generated files. Instead a localhost URL is generated using the
+ # port specified in the `docker-compose.yml`.
+url: "https://bryanknox.github.io"
+
 twitter_username: bryanknoxbits
 github_username:  bryanknox
 
@@ -31,7 +41,7 @@ github_username:  bryanknox
 theme: minima
 plugins:
   - jekyll-feed
-  - jekyll-sitemap
+  - jekyll-sitemap # Goes after plugins that generate files to include in the sitemap.
 
 # Exclude from processing.
 # The following items will not be processed, by default.
