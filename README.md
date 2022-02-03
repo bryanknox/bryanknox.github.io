@@ -45,3 +45,8 @@ That will list all of the docker images on the local machine. Grab the `jekyll/j
 ```bash
 docker image rm imageId
 ```
+
+
+## Publishing Changes
+
+Changes pushed to the repo's `main` branch are automatically published by GitHub.
