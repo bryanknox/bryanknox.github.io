@@ -8,7 +8,7 @@
 # For technical reasons, this file is *NOT* reloaded automatically when you use
 # 'bundle exec jekyll serve'. If you change this file, please restart the server process.
 #
-# If you need help with YAML syntax, here are some quick references for you: 
+# If you need help with YAML syntax, here are some quick references for you:
 # https://learn-the-web.algonquindesign.ca/topics/markdown-yaml-cheat-sheet/#yaml
 # https://learnxinyminutes.com/docs/yaml/
 #
@@ -22,20 +22,22 @@ title: Knoxbits Blog
 email: ""
 description: >- # this means to ignore newlines until "baseurl:"
   I love software development. It makes me happy.
-baseurl: "" # the subpath of your site, e.g. /blog
+baseurl:
+  "" # the subpath of your site, e.g. /blog
 
- # `url:` is the base hostname & protocol for the site, e.g. http://example.com
- # It should be the URL to the GitHub pages.
- # This is important for the generation of:
- #   - sitemap
- #   - canonical_url
- # When the `docker-compose.yml` is used for localhost testing, this `url:` does NOT
- # appear in the generated files. Instead a localhost URL is generated using the
- # port specified in the `docker-compose.yml`.
+
+  # `url:` is the base hostname & protocol for the site, e.g. http://example.com
+  # It should be the URL to the GitHub pages.
+  # This is important for the generation of:
+  #   - sitemap
+  #   - canonical_url
+  # When the `docker-compose.yml` is used for localhost testing, this `url:` does NOT
+  # appear in the generated files. Instead a localhost URL is generated using the
+  # port specified in the `docker-compose.yml`.
 url: "https://bryanknox.github.io"
 
 twitter_username: bryanknoxbits
-github_username:  bryanknox
+github_username: bryanknox
 
 # Build settings
 theme: minima
@@ -52,8 +54,8 @@ plugins:
 # their entries' file path in the `include:` list.
 #
 exclude:
-   - docker-compose.yml
-   - README.md
+  - docker-compose.yml
+  - README.md
 #   - .sass-cache/
 #   - .jekyll-cache/
 #   - gemfiles/

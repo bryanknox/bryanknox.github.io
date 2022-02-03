@@ -1,0 +1,26 @@
+# EditorConfig is awesome: https://EditorConfig.org
+
+# Top-most EditorConfig file.
+root = true
+
+# All files
+[*]
+charset = utf-8 # Don't use BOM (utf-8-bom) with Jekyll.
+# indent_size intentionally not specified in this section.
+indent_style = space # Use soft tabs (spaces) for indentation.
+insert_final_newline = true
+trim_trailing_whitespace = true
+
+# HTML files
+[*.{htm,html}]
+indent_size = 2
+
+# Markdown files
+[*.{md,markdown}]
+indent_size = 2
+trim_trailing_whitespace = false # Soft line break is two spaces at the end of line.
+
+# YAML files
+[*.{yml,yaml}]
+indent_size = 2 # Critical for YAM files.
+indent_style = space # Critical for YAM files.
