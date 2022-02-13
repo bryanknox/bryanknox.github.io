@@ -8,10 +8,19 @@
  * Everything below is custom, not part of the standard minima theme.
  */
 
-.k0x-site-tagline {
-    @include relative-font-size(1.0);
+ .k0x-site-description {
+  font-weight: 300;
+  margin-bottom: 0;
+}
 
-    font-weight: 300;
-    line-height: $base-line-height * $base-font-size * 2.5;
-    letter-spacing: -1px;
+.k0x-site-title {
+  @include relative-font-size(1.625);
+  font-weight: 300;
+  line-height: $base-line-height * $base-font-size * 2.25;
+  letter-spacing: -1px;
+
+  &,
+  &:visited {
+    color: $grey-color-dark;
   }
+}

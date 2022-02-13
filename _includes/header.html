@@ -1,10 +1,14 @@
+
 <header class="site-header" role="banner">
 
   <div class="wrapper">
+    <div>
+      <a class="k0x-site-title" rel="author" href="{{ "/" | relative_url }}">{{ site.title | escape }}</a>
+      <p class="k0x-site-description">{{ site.description | escape }}</p>
+    </div>
+
     {%- assign default_paths = site.pages | map: "path" -%}
     {%- assign page_paths = site.header_pages | default: default_paths -%}
-    <a class="site-title" rel="author" href="{{ "/" | relative_url }}">{{ site.title | escape }}</a>
-    <div class="k0x-site-tagline">&nbsp;-&nbsp;{{ site.description | escape }}</div>
 
     {%- if page_paths -%}
       <nav class="site-nav">
