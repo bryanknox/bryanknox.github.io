@@ -10,6 +10,8 @@ in-process Azure Functions.
 For example, "`Message: Could not load file or assembly 'Microsoft.IdentityModel.Protocols, ...`"
 or "`Message: Could not load file or assembly 'Microsoft.IdentityModel.Protocols.OpenIdConnect, ...`".
 
+These errors are typically emitted when a function is triggered. Hopefully during development and not in production.
+
 Here's a full example of the error logged:
 ```
 [2021-07-18T19:40:20.200Z] Authorization Failed. System.IO.FileNotFoundException caught while validating JWT token.Message: Could not load file or assembly 'System.IdentityModel.Tokens.Jwt, Version=6.7.1.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35'. The system cannot find the file specified.
@@ -69,13 +71,16 @@ That list will need to be updated as the assemblies or the version of the assemb
 There is a list of assemblies that the in-process Azure Functions runtime uses. That list is maintained at:
 https://github.com/Azure/azure-functions-host/blob/dev/tools/ExtensionsMetadataGenerator/test/ExtensionsMetadataGeneratorTests/ExistingRuntimeAssemblies.txt
 
-## Which fix to use?
+## Which fix to Use?
 
 A dev/devops team might decide between skip cleanout and preserving specific assemblies base on the amount of efficiency they desired in the runtime environments for their function app, and on their capacity to handle additional maintenance.
 
 `_FunctionsSkipCleanOutput` - Use skip cleanout if efficiency-loss due to multiple assemblies being deployed is not a concern. Skipping cleanout doesn't require additional potential maintenance over time.
 
 `FunctionsPreservedDependencies` - Use preserve dependencies if efficiency is important, and worth the cost of the updating the `FunctionsPreservedDependencies` elements as the function app or runtime evolve.
+
+## Testing the Fix
+No matter which mechanism you chose to fix the problem, you should test the fix by triggering/testing each function in your function app. Or at least those that depend on different assemblies.
 
 # Documentation (none)
 
